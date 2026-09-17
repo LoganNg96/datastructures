@@ -29,7 +29,7 @@ class LinkedListsAlgorithms:
             current = newnode
 
     def save_data(self):
-        file = open("linkedlist_output.txt", "w")
+        file = open("linkedlist_input.txt", "w")
 
         current = self.head
 
@@ -59,7 +59,6 @@ class LinkedListsAlgorithms:
 
     def algorithm_add_to_end_of_list(self):
         number_to_add_data = int(input("Which number would you like to add to the list? (Data)"))
-        # number_to_add_slot_in_list = int(input("Which number would you like to put in the linked list? (Slot)"))
 
         current = self.head
         while current.next != None:
@@ -72,7 +71,50 @@ class LinkedListsAlgorithms:
         print(current.data)         
         print(current.next.data)
         self.save_data()
+    def algorithm_remove_from_list(self):
 
+        # FUNC 1, PRINTS THE LIST
+        self.algorithm_print_file()
+
+        check_option = int(input("Here is the current list. Which number would you like to remove? "))
+
+        # FUNC 2, CHECKS IF THE INPUT IS IN THE LINKED LIST
+        current = self.head
+        previous = None
+        Value = False
+
+        while current != None:
+
+            if current.data == check_option:
+                Value = True
+                break
+
+            previous = current
+            current = current.next
+
+        # FUNC 4, REMOVE THEN SAVE
+        if Value == True:
+
+            # If we're removing the first node
+            if previous == None:
+                self.head = current.next
+
+            # If we're removing any other node
+            else:
+                previous.next = current.next
+
+            print("Removed:", check_option)
+
+            self.algorithm_print_file()
+
+            self.save_data()
+
+        else:
+            print("That number wasn't in the list.")
+
+
+
+            
 linked_list = LinkedListsAlgorithms()
 linked_list.read_data()
 
@@ -85,6 +127,8 @@ while True:
             linked_list.algorithm_find_num()
         elif algorithm == 3:
             linked_list.algorithm_add_to_end_of_list()
+        elif algorithm == 4:
+            linked_list.algorithm_remove_from_list()
 
         if algorithm == 9:
             break
