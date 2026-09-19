@@ -39,7 +39,6 @@ class LinkedListsAlgorithms:
 
         file.close()
 
-
     def algorithm_print_file(self):
         current = self.head
         while current != None:
@@ -112,7 +111,74 @@ class LinkedListsAlgorithms:
         else:
             print("That number wasn't in the list.")
 
+    def algorithm_sort_list(self):
+        current = self.head
+        prev = None
+        head = None
 
+        current2 = head
+
+        while current != None:
+            prev = None
+            current2 = head
+
+            data = int(current.data)
+            newnode = Node(data)
+            current = current.next
+
+            # First node
+            if current2 == None:
+                head = newnode
+
+            # New node belongs at the beginning
+            elif newnode.data < head.data:
+                newnode.next = head
+                head = newnode
+
+            else:
+                # Find where the new node belongs
+                while current2 != None:
+                    if newnode.data < current2.data:
+                        prev.next = newnode
+                        newnode.next = current2
+                        break
+
+                    prev = current2
+                    current2 = current2.next
+
+                # New node belongs at the end
+                if current2 == None:
+                    prev.next = newnode
+
+        current2 = head
+
+        while current2 != None:
+            print(current2.data)
+            current2 = current2.next
+
+        yes_save = str(input("Would you like to save this sorted list? \n"))
+        if yes_save == "y" or "yes" or "yea" or "Y" or "Yes" or "Yea":
+            file = open("linkedlist_input.txt", "w")
+
+            current = head
+
+            while current != None:
+                file.write(str(current.data) + "\n")
+                current = current.next
+
+            file.close()
+            print("Here is the list:")
+            current = head
+            while current != None:
+                print(current.data)
+                current = current.next
+ 
+
+
+
+
+
+        
 
             
 linked_list = LinkedListsAlgorithms()
@@ -120,7 +186,7 @@ linked_list.read_data()
 
 while True:
 
-        algorithm = int(input("Which algorithm would you like to use? \n 1.Print linked list \n 2. Find whether a number is in the list \n 3. Add something to the end of the list \n 4. Remove something from the list \n press 9 to quit "))
+        algorithm = int(input("Which algorithm would you like to use? \n 1. Print linked list \n 2. Find whether a number is in the list \n 3. Add something to the end of the list \n 4. Remove something from the list \n 5. Sort the list low to high \n press 9 to quit "))
         if algorithm == 1:
             linked_list.algorithm_print_file()
         elif algorithm == 2:
@@ -129,6 +195,8 @@ while True:
             linked_list.algorithm_add_to_end_of_list()
         elif algorithm == 4:
             linked_list.algorithm_remove_from_list()
+        elif algorithm == 5:
+            linked_list.algorithm_sort_list()
 
         if algorithm == 9:
             break
