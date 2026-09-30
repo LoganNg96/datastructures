@@ -6,27 +6,41 @@ class LinkedListsAlgorithms:
     def __init__(self):
         self.stop_running = False
         self.head = None
+        self.head2
 
 
     def read_data(self):
         file = open("linkedlist_input.txt", "r")
-        current = self.head
-        reading_file = True
-        while reading_file:
+
+        current = None
+        second_list = False
+
+        while True:
             line = file.readline()
 
-            if line == '':  # We've hit the end of the file
-                reading_file = False
+            if line == '':  # End of file
                 break
+
+            if line.strip() == '':  # Blank line = second list
+                second_list = True
+                current = None
 
             data = int(line)
             newnode = Node(data)
-            if current == None:  # then this is our very first node
-                self.head = newnode
+
+            if second_list == False:
+                if current == None:
+                    self.head = newnode
+                else:
+                    current.next = newnode
             else:
-                current.next = newnode
+                if current == None:
+                    self.head2 = newnode
+                else:
+                    current.next = newnode
 
             current = newnode
+
 
     def save_data(self):
         file = open("linkedlist_input.txt", "w")
@@ -172,6 +186,40 @@ class LinkedListsAlgorithms:
             while current != None:
                 print(current.data)
                 current = current.next
+
+    def algoritm_reverse_list(self):
+        current = self.head.next
+        nxt = self.head.next.next 
+        prevous = self.head
+        is_not_reversed = False
+
+
+        while is_not_reversed == False:
+            if prevous == self.head:
+                prevous.next = None
+            current.next = prevous
+
+
+            prevous = current
+            current = nxt
+            if nxt != None:
+                nxt = nxt.next
+            if current == None:
+                is_not_reversed = True
+                break
+        self.head = prevous
+        current = self.head
+        while current != None:
+            print(current.data)
+            current = current.next
+    def algorithm_merge_and_sort_two_lists(self):
+        pass
+
+    def algorithm_reverse_list_and_sort(self):
+        pass
+    def algorithm_run_again(self):
+        pass
+        
  
 
 
@@ -186,7 +234,7 @@ linked_list.read_data()
 
 while True:
 
-        algorithm = int(input("Which algorithm would you like to use? \n 1. Print linked list \n 2. Find whether a number is in the list \n 3. Add something to the end of the list \n 4. Remove something from the list \n 5. Sort the list low to high \n press 9 to quit "))
+        algorithm = int(input("Which algorithm would you like to use? \n 1. Print linked list \n 2. Find whether a number is in the list \n 3. Add something to the end of the list \n 4. Remove something from the list \n 5. Sort the list low to high \n 6. Reverse list \n 7. Reverse and sort list \n press 9 to quit "))
         if algorithm == 1:
             linked_list.algorithm_print_file()
         elif algorithm == 2:
@@ -197,6 +245,17 @@ while True:
             linked_list.algorithm_remove_from_list()
         elif algorithm == 5:
             linked_list.algorithm_sort_list()
+        elif algorithm == 6:
+            linked_list.algoritm_reverse_list()
+        elif algorithm == 7:
+            linked_list.algorithm_reverse_list_and_sort() 
+        else:
+            print("That number wasn't an option... \n")
+            print("BEEP BOOP, RESTARTING PROGRAM...")
+            print("PLEASE BE PATIENT...")
+            print("restarted program:")
+            linked_list.algorithm_run_again()
+            
 
         if algorithm == 9:
             break

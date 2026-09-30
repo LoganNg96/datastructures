@@ -15,3 +15,4 @@ for i in range(len(nums)):
 print(odd_total)
 print(even_total)
 
+ 
