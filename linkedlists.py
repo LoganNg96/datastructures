@@ -6,7 +6,8 @@ class LinkedListsAlgorithms:
     def __init__(self):
         self.stop_running = False
         self.head = None
-        self.head2
+        self.head2 = None
+        self.head3 = None
 
 
     def read_data(self):
@@ -24,6 +25,7 @@ class LinkedListsAlgorithms:
             if line.strip() == '':  # Blank line = second list
                 second_list = True
                 current = None
+                continue
 
             data = int(line)
             newnode = Node(data)
@@ -212,8 +214,54 @@ class LinkedListsAlgorithms:
         while current != None:
             print(current.data)
             current = current.next
-    def algorithm_merge_and_sort_two_lists(self):
-        pass
+
+    def algorithm_merge_two_lists(self):
+        endpoint = self.head3        
+        current1 = self.head
+        current2 = self.head2
+    
+
+
+
+        list_isnt_merged = True
+        next_to_add = None
+        while list_isnt_merged == True:
+            if current1 == None:
+                endpoint.next = current2
+                list_isnt_merged = False
+                break
+            if current2 == None:
+                endpoint.next = current1
+                list_isnt_merged = False
+                break
+            # Find which one out of the # of lists is smaller.
+            if current1.data > current2.data:
+                next_to_add = current2
+                current2 = current2.next
+            elif current1.data < current2.data:
+                next_to_add = current1
+                current1 = current1.next
+            # End of the attribute list.
+
+
+
+            #Put the one with lesser value into the new linked list.
+            # Base cases:
+            if endpoint == None and self.head3 == None:
+                endpoint = next_to_add
+                self.head3 = endpoint
+                endpoint.next = None
+            else:
+                # Actualls
+                endpoint.next = next_to_add
+                endpoint = endpoint.next
+                endpoint.next = None
+
+            current = self.head3
+            while current != None:
+                print(current.data)
+                current = current.next
+
 
     def algorithm_reverse_list_and_sort(self):
         pass
@@ -249,6 +297,8 @@ while True:
             linked_list.algoritm_reverse_list()
         elif algorithm == 7:
             linked_list.algorithm_reverse_list_and_sort() 
+        elif algorithm == 8:
+            linked_list.algorithm_merge_two_lists()
         else:
             print("That number wasn't an option... \n")
             print("BEEP BOOP, RESTARTING PROGRAM...")
