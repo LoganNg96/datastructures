@@ -216,51 +216,46 @@ class LinkedListsAlgorithms:
             current = current.next
 
     def algorithm_merge_two_lists(self):
-        endpoint = self.head3        
         current1 = self.head
         current2 = self.head2
-    
 
 
+        if current1 is None:        #BC for at the end of the list
+            self.head3 = current2
+            return
+        if current2 is None:
+            self.head3 = current1
+            return
 
-        list_isnt_merged = True
-        next_to_add = None
-        while list_isnt_merged == True:
-            if current1 == None:
-                endpoint.next = current2
-                list_isnt_merged = False
-                break
-            if current2 == None:
+        if current1.data <= current2.data: # checks which one is bigger/ smaller
+            self.head3 = current1
+            current1 = current1.next
+        else:
+            self.head3 = current2
+            current2 = current2.next
+
+        endpoint = self.head3
+
+        while current1 != None and current2 != None:
+            if current1.data < current2.data:
                 endpoint.next = current1
-                list_isnt_merged = False
-                break
-            # Find which one out of the # of lists is smaller.
-            if current1.data > current2.data:
-                next_to_add = current2
-                current2 = current2.next
-            elif current1.data < current2.data:
-                next_to_add = current1
                 current1 = current1.next
-            # End of the attribute list.
-
-
-
-            #Put the one with lesser value into the new linked list.
-            # Base cases:
-            if endpoint == None and self.head3 == None:
-                endpoint = next_to_add
-                self.head3 = endpoint
-                endpoint.next = None
             else:
-                # Actualls
-                endpoint.next = next_to_add
-                endpoint = endpoint.next
-                endpoint.next = None
+                endpoint.next = current2
+                current2 = current2.next
 
-            current = self.head3
-            while current != None:
-                print(current.data)
-                current = current.next
+            endpoint = endpoint.next
+
+        if current1 != None:
+            endpoint.next = current1
+        else:
+            endpoint.next = current2
+
+        # Print the merged list
+        current = self.head3
+        while current != None:
+            print(current.data)
+            current = current.next
 
 
     def algorithm_reverse_list_and_sort(self):
