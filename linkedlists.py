@@ -236,13 +236,13 @@ class LinkedListsAlgorithms:
 
         endpoint = self.head3
 
-        while current1 != None and current2 != None:
-            if current1.data < current2.data:
-                endpoint.next = current1
-                current1 = current1.next
+        while current1 != None and current2 != None: 
+            if current1.data <= current2.data: 
+                endpoint.next = current1 
+                current1 = current1.next 
             else:
-                endpoint.next = current2
-                current2 = current2.next
+                endpoint.next = current2 
+                current2 = current2.next 
 
             endpoint = endpoint.next
 
