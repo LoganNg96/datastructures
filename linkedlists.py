@@ -55,13 +55,11 @@ class LinkedListsAlgorithms:
 
         file.close()
 
-    def algorithm_print_file(self):
-        current = self.head
-        while current != None:
-            print(current.data)
-            current = current.next
-
-
+    def algorithm_print_file(self, current):
+        if current == None:
+            return
+        print(current.data)
+        self.algorithm_print_file(current.next)
     def algorithm_find_num(self):
         number_to_find = int(input("Which number would you like to find?\n"))
         current = self.head
@@ -279,7 +277,7 @@ while True:
 
         algorithm = int(input("Which algorithm would you like to use? \n 1. Print linked list \n 2. Find whether a number is in the list \n 3. Add something to the end of the list \n 4. Remove something from the list \n 5. Sort the list low to high \n 6. Reverse list \n 7. Reverse and sort list \n press 9 to quit "))
         if algorithm == 1:
-            linked_list.algorithm_print_file()
+            linked_list.algorithm_print_file(linked_list.head)
         elif algorithm == 2:
             linked_list.algorithm_find_num()
         elif algorithm == 3:

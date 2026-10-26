@@ -10,12 +10,7 @@ class Node:
 def insert(root, value):
     if root is None:
         return Node(value)
-    if value > root.value:
-        root.right = insert(root.right, value)
-    elif value < root.value:
-        root.left = insert(root.left, value)
 
-    return root
 
 def print_tree(root):
     if root is None:
