@@ -70,20 +70,31 @@ class LinkedListsAlgorithms:
                 print("Your number is in the linked list\n")
                 break
 
-    def algorithm_add_to_end_of_list(self):
-        number_to_add_data = int(input("Which number would you like to add to the list? (Data)"))
+    def algorithm_add_to_end_of_list(self, current):
+        number_to_add_data = int(
+            input("Pick a number to add to the end of the list: ")
+        )
+        newnode = Node(number_to_add_data)
 
-        current = self.head
-        while current.next != None:
-            print(current.data)
-            current = current.next
-
-        data = int(number_to_add_data)
-        newnode = Node(data)
-        current.next = newnode  
-        print(current.data)         
-        print(current.next.data)
+        self.add_recursive(current, newnode)
         self.save_data()
+
+
+    def add_recursive(self, current, newnode):
+
+        if current == None:
+            self.head = newnode
+            self.save_data()
+            return 
+
+        if current.next == None:
+            current.next = newnode
+            self.save_data()
+            return newnode
+
+        self.add_recursive(current.next, newnode)
+        print(current.data)
+
     def algorithm_remove_from_list(self):
 
         # FUNC 1, PRINTS THE LIST
@@ -281,7 +292,7 @@ while True:
         elif algorithm == 2:
             linked_list.algorithm_find_num()
         elif algorithm == 3:
-            linked_list.algorithm_add_to_end_of_list()
+            linked_list.algorithm_add_to_end_of_list(linked_list.head)
         elif algorithm == 4:
             linked_list.algorithm_remove_from_list()
         elif algorithm == 5:
