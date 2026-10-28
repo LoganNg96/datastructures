@@ -60,24 +60,20 @@ class LinkedListsAlgorithms:
         if current == None:
             return
         print(current.data)
-        self.algorithm_print_file(current.next)
-    def algorithm_find_num(self):
-        number_to_find = int(input("Which number would you like to find?\n"))
-        current = self.head
-        while current != None:
-            if current.data != number_to_find:
-                current = current.next
-            elif current.data == number_to_find:
-                print("Your number is in the linked list\n")
-                break
+        self.algorithm_print_file(current)
 
-    def find_recursive(self, current):
+    def algorithm_find_num(self, current):
+        number_to_find = int(input("Which number would you like to find?\n"))
+        self.find_recursive(current, number_to_find)
+
+    def find_recursive(self, current, number_to_find):
         if current == None:
             print("You're number is not in the file, I swear, I checked twice.")
             return
-        if current.data == self.num_to_remove:
+        if current.data == number_to_find:
             print("You're number was in the list, I'm pretty tuff right? Okay so I might've not really seen your number but wtv yk?")
             return
+        self.find_recursive(current.next, number_to_find)
 
     def algorithm_add_to_end_of_list(self, current):
         number_to_add_data = int(input("Pick a number to add to the end of the list: "))
@@ -110,6 +106,7 @@ class LinkedListsAlgorithms:
 
         self.remove_recursive(current, num_to_remove)
         self.algorithm_print_file(self.head)
+        self.save_data()
     def remove_recursive(self, current, num_to_remove):
         # Bug #1 - what if current == None?
         if current.next == None:
