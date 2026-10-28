@@ -2,6 +2,7 @@ class Node:
     def __init__(self, data):
         self.data = data
         self.next = None
+
 class LinkedListsAlgorithms:
     def __init__(self):
         self.stop_running = False
@@ -70,10 +71,16 @@ class LinkedListsAlgorithms:
                 print("Your number is in the linked list\n")
                 break
 
+    def find_recursive(self, current):
+        if current == None:
+            print("You're number is not in the file, I swear, I checked twice.")
+            return
+        if current.data == self.num_to_remove:
+            print("You're number was in the list, I'm pretty tuff right? Okay so I might've not really seen your number but wtv yk?")
+            return
+
     def algorithm_add_to_end_of_list(self, current):
-        number_to_add_data = int(
-            input("Pick a number to add to the end of the list: ")
-        )
+        number_to_add_data = int(input("Pick a number to add to the end of the list: "))
         newnode = Node(number_to_add_data)
 
         self.add_recursive(current, newnode)
@@ -89,52 +96,35 @@ class LinkedListsAlgorithms:
 
         if current.next == None:
             current.next = newnode
-            self.save_data()
-            return newnode
+            return
 
         self.add_recursive(current.next, newnode)
         print(current.data)
 
-    def algorithm_remove_from_list(self):
+    def algorithm_remove_from_list(self, current):
 
         # FUNC 1, PRINTS THE LIST
-        self.algorithm_print_file()
+        self.algorithm_print_file(self.head)
 
-        check_option = int(input("Here is the current list. Which number would you like to remove? "))
+        num_to_remove = int(input("Here is the current list. Which number would you like to remove? "))
 
-        # FUNC 2, CHECKS IF THE INPUT IS IN THE LINKED LIST
-        current = self.head
-        previous = None
-        Value = False
+        self.remove_recursive(current, num_to_remove)
+        self.algorithm_print_file(self.head)
+    def remove_recursive(self, current, num_to_remove):
+        # Bug #1 - what if current == None?
+        if current.next == None:
+            print("Pick a different number bro, that's not in the list")
+            return
+        elif current == None:
+            print("PICK A DIFFERENT NUMBER")
+            return
+        if current.next.data == num_to_remove:
+            current.next = current.next.next
+            return
 
-        while current != None:
+        self.remove_recursive(current.next, num_to_remove)
 
-            if current.data == check_option:
-                Value = True
-                break
 
-            previous = current
-            current = current.next
-
-        # FUNC 4, REMOVE THEN SAVE
-        if Value == True:
-
-            # If we're removing the first node
-            if previous == None:
-                self.head = current.next
-
-            # If we're removing any other node
-            else:
-                previous.next = current.next
-
-            print("Removed:", check_option)
-
-            self.algorithm_print_file()
-
-            self.save_data()
-
-        else:
-            print("That number wasn't in the list.")
 
     def algorithm_sort_list(self):
         current = self.head
@@ -290,11 +280,11 @@ while True:
         if algorithm == 1:
             linked_list.algorithm_print_file(linked_list.head)
         elif algorithm == 2:
-            linked_list.algorithm_find_num()
+            linked_list.algorithm_find_num(linked_list.head)
         elif algorithm == 3:
             linked_list.algorithm_add_to_end_of_list(linked_list.head)
         elif algorithm == 4:
-            linked_list.algorithm_remove_from_list()
+            linked_list.algorithm_remove_from_list(linked_list.head)
         elif algorithm == 5:
             linked_list.algorithm_sort_list()
         elif algorithm == 6:
