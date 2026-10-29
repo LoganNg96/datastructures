@@ -95,7 +95,7 @@ class LinkedListsAlgorithms:
             return
 
         self.add_recursive(current.next, newnode)
-        print(current.data)
+
 
     def algorithm_remove_from_list(self, current):
 
@@ -109,11 +109,8 @@ class LinkedListsAlgorithms:
         self.save_data()
     def remove_recursive(self, current, num_to_remove):
         # Bug #1 - what if current == None?
-        if current.next == None:
+        if current == None or current.next == None:
             print("Pick a different number bro, that's not in the list")
-            return
-        elif current == None:
-            print("PICK A DIFFERENT NUMBER")
             return
         if current.next.data == num_to_remove:
             current.next = current.next.next
