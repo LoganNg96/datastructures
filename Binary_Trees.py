@@ -77,6 +77,7 @@ class Binary_tree:
             self.find_nearest_ancestor_recursion(root.right, value, path)
 
 
+
     def find_nearest_ancestor(self, root, value, value2):
 
         path1 = []
@@ -96,6 +97,12 @@ class Binary_tree:
 
         return path1[i - 1]
 
+    def inorder_print(self, root):
+        if root is None:
+            return
+        self.inorder_print(root.left)
+        print(root.value)
+        self.inorder_print(root.right)
 
             
 
@@ -117,5 +124,4 @@ class Binary_tree:
 
 tree = Binary_tree()
 tree.read_data()
-print(tree.find_nearest_ancestor(tree.root, 3, 5))
-
+tree.inorder_print(tree.root)
