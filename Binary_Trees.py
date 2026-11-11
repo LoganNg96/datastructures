@@ -17,6 +17,9 @@ class Binary_tree:
             if line == '':
                 break
 
+            if line.strip() == '':
+                continue
+
             data = int(line)
             self.root = self.insert(self.root, data)
 
@@ -58,6 +61,41 @@ class Binary_tree:
             root.value = successor.value
             # Finds the double guy
             root.right = self.remove(root.right, successor.value)
+        return root
+
+    def find_nearest_ancestor_recursion(self, root, value, path):
+
+        if root is None:
+            return
+
+        path.append(root.value)
+
+        if value < root.value:
+            self.find_nearest_ancestor_recursion(root.left, value, path)
+
+        elif value > root.value:
+            self.find_nearest_ancestor_recursion(root.right, value, path)
+
+
+    def find_nearest_ancestor(self, root, value, value2):
+
+        path1 = []
+        path2 = []
+
+        self.find_nearest_ancestor_recursion(root, value, path1)
+        self.find_nearest_ancestor_recursion(root, value2, path2)
+
+        i = 0
+
+        while i < len(path1) and i < len(path2):
+
+            if path1[i] != path2[i]:
+                return path1[i - 1]
+
+            i += 1
+
+        return path1[i - 1]
+
 
             
 
@@ -78,5 +116,6 @@ class Binary_tree:
 
 
 tree = Binary_tree()
-tree.Main_loop(12)
+tree.read_data()
+print(tree.find_nearest_ancestor(tree.root, 3, 5))
 
