@@ -104,6 +104,18 @@ class Binary_tree:
         print(root.value)
         self.inorder_print(root.right)
 
+    def find_depth_recursive(self, root):
+        if root is None:
+            return 0
+
+        left_down = self.find_depth_recursive(root.left)
+        right_down = self.find_depth_recursive(root.right)
+
+        return 1 + max(left_down, right_down)
+    
+    def find_depth(self, root):
+        print(self.find_depth_recursive(root))
+        return self.find_depth_recursive(root)
             
 
 
@@ -124,4 +136,4 @@ class Binary_tree:
 
 tree = Binary_tree()
 tree.read_data()
-tree.inorder_print(tree.root)
+tree.find_depth(tree.root)
