@@ -5,8 +5,9 @@ class Node:
         self.right = None
 
 class Binary_tree:
-    def __init__(self):
+    def __init__(self): 
         self.root = None
+        self.unsorted_root = None
 
     def read_data(self):
         file = open("linkedlist_input.txt", "r")
@@ -25,6 +26,22 @@ class Binary_tree:
 
         file.close()
 
+    def read_unsorted_data(self):
+        file = open("Linkedlist_input.txt", "r")
+
+        while True:
+            line = file.readline()
+
+            if line == '':
+                break
+
+            if line.strip() == '':
+                continue
+
+            data = int(line)
+            self.unsorted_root = self.unsorted_insert(self.unsorted_root, data)
+        file.close()
+
     def insert(self, root, value):
 
         if root is None:
@@ -37,6 +54,15 @@ class Binary_tree:
             root.left = self.insert(root.left, value)
 
         return root
+
+    def unsorted_insert(self, unsorted_root, value):
+        if unsorted_root is None:
+            return Node(value)
+
+        unsorted_root.right = self.unsorted_insert(unsorted_root.right, value)
+        unsorted_root.left = self.unsorted_insert(unsorted_root.left, value)
+
+        return unsorted_root
     
     def remove(self, root, value):
         if root is None:
@@ -116,6 +142,32 @@ class Binary_tree:
     def find_depth(self, root):
         print(self.find_depth_recursive(root))
         return self.find_depth_recursive(root)
+    
+    def DFS_recursion(self, root, value):
+        if root is None:
+            return False
+
+        if root.value == value:
+            return True
+
+        if self.DFS_recursion(root.left, value):
+            return True
+
+        if self.DFS_recursion(root.right, value):
+            return True
+
+        return False
+
+
+    def DFS(self, unsorted_root, value):
+        if self.DFS_recursion(unsorted_root, value) == True:
+            print("your number is in the tree")
+        else:
+            print("your number is not in the tree, try a different value?")
+        return self.DFS_recursion(unsorted_root, value)
+    
+
+        
             
 
 
@@ -135,5 +187,5 @@ class Binary_tree:
 
 
 tree = Binary_tree()
-tree.read_data()
-tree.find_depth(tree.root)
+tree.read_unsorted_data()
+tree.DFS(tree.unsorted_root, 2)
