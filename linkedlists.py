@@ -29,7 +29,7 @@ class LinkedListsAlgorithms:
                 continue
 
             data = int(line)
-            newnode = Node(data)8
+            newnode = Node(data)
 
             if second_list == False:
                 if current == None:
