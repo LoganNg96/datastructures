@@ -31,3 +31,4 @@ class stacks:
         self.head = self.head.next
 
         print("removed " + removed)
+
