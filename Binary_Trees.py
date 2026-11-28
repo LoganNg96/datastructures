@@ -1,3 +1,4 @@
+from queues import queue
 class Node:
     def __init__(self, value):
         self.value = value
@@ -166,6 +167,31 @@ class Binary_tree:
             print("your number is not in the tree, try a different value?")
         return self.DFS_recursion(unsorted_root, value)
     
+    def BFS(self, root):
+        if root == None:
+            print("nothing in tree")
+            return
+
+        value = int(input("Input a number you would like to find: "))
+
+        q = queue()
+        q.enqeue(root)
+
+        while q.head != None:
+            current = q.deqeue()
+
+            if current.value == value:
+                print("Your value is in the tree!!!!")
+                return True
+
+            if current.left != None:
+                q.enqeue(current.left)
+
+            if current.right != None:
+                q.enqeue(current.right)
+
+        print("Your value is not in the tree :(")
+        return False
 
         
             
@@ -188,4 +214,5 @@ class Binary_tree:
 
 tree = Binary_tree()
 tree.read_unsorted_data()
-tree.DFS(tree.unsorted_root, 2)
+tree.print_tree(tree.unsorted_root)
+tree.BFS(tree.unsorted_root)
